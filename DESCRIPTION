@@ -1,15 +1,21 @@
 Package: pcSoftmaxPack
-Title: What the Package Does (One Line, Title Case)
+Title: Softmax competitions calculations
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "First",
-           family = "Last",
+    person(given = "Anthony",
+           family = "Vashevko",
            role = c("aut", "cre"),
-           email = "first.last@example.com",
+           email = "anthony.vashevko@insead.edu",
            comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
+Description: Producer categories paper softmax competition calculations package
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
+Imports:
+    tidyverse(>= 1.0.0),
+    Rmpfr(>= 0.8)
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
