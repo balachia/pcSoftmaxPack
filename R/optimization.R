@@ -50,6 +50,7 @@ Eumsi.optimize.terminal <- function(x, sgn = 1, last.optim = 4, ...) {
 Eumsi.optimize <- function(vgrid, xgrid, term.last.optim = c(-4, 4), gh.rule = fastGHQuad::gaussHermiteData(30), ...) {
     #x.joint <- sort(unique(xgrid))
     #x.aug <- c(-Inf, x.joint, Inf)
+    stopifnot(term.last.optim[1] < 0 && term.last.optim[2] > 0)
     # evaluate joints
     x.joint <- unique(xgrid)
     #print(x.joint)
@@ -61,10 +62,10 @@ Eumsi.optimize <- function(vgrid, xgrid, term.last.optim = c(-4, 4), gh.rule = f
                  gh.rule = gh.rule, vgrid = vgrid, xgrid = xgrid, ...)
     })
     # evaluate terminals
-    res.l <- Eumsi.optimize.terminal(x = x.joint[1],
+    res.l <- Eumsi.optimize.terminal(x = min(x.joint),
                                      gh.rule = gh.rule, sgn = -1, last.optim = term.last.optim[1],
                                      xgrid = xgrid, vgrid = vgrid, ...)
-    res.r <- Eumsi.optimize.terminal(x = x.joint[length(x.joint)],
+    res.r <- Eumsi.optimize.terminal(x = max(x.joint),
                                      gh.rule = gh.rule, sgn = 1, last.optim = term.last.optim[2],
                                      xgrid = xgrid, vgrid = vgrid, ...)
     #res.optims <- purrr::transpose(c(res.itls, res.l, res.r))
@@ -78,7 +79,7 @@ Eumsi.optimize <- function(vgrid, xgrid, term.last.optim = c(-4, 4), gh.rule = f
     is.joint <- c(rep.int(TRUE, length(x.joint)), rep.int(FALSE, 2 + length(res.itls)))
     is.terminal <- c(rep.int(FALSE, length(x.joint) + length(res.itls)), rep.int(TRUE, 2))
     # find maximum
-    term.optim <- c(res.l$maximum, res.r$maximum)
+    term.optim <- c(res.l$maximum, res.r$maximum) - c(min(x.joint), max(x.joint))
     which.optim <- which.max(eus)
     #list(eus.joint, intervals = res.itls, left = res.l, right = res.r)
     list(maximum = xs[which.optim], objective = eus[which.optim],
