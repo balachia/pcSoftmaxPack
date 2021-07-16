@@ -52,7 +52,7 @@ bounds.in.grid <- function(x0, xgrid) {
 #' @param xl left endpoint of interval (NA for -Inf)
 #' @param xr right endpoint of interval (NA for Inf)
 open.sd <- function(x0, xl, xr) {
-    sqrt(abs(x0 - if_else(is.na(xr), xl, xr)))
+    sqrt(abs(x0 - dplyr::if_else(is.na(xr), xl, xr)))
 }
 
 #' Bridge interval mean
@@ -75,6 +75,13 @@ bridge.sd <- function(x0, xl, xr) {
     sqrt(((x0 - xl) * (xr - x0)) / (xr - xl))
 }
 
+#' Wiener process first moments (mean, sd)
+#' 
+#' @param x0 focal point
+#' @param xgrid positions
+#' @param vgrid values of positions
+#' @return list: mean, sd
+#' @export
 wiener.moments <- function(x0, xgrid, vgrid) {
     # get bounds
     lr <- bounds.in.grid(x0, xgrid)
