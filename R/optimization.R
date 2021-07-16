@@ -38,6 +38,8 @@ Eumsi.optimize.terminal <- function(x, sgn = 1, last.optim = 4, ...) {
     res
 }
 
+Eumsi.optimize.interval <- function()
+
 #' Find optimal entry location per expected inverse utility
 #'
 #' @param vgrid values of other competitors
@@ -56,9 +58,10 @@ Eumsi.optimize <- function(vgrid, xgrid, term.last.optim = c(-4, 4), gh.rule = f
     #print(x.joint)
     eus.joint <- Eumsi.optim.vec(x0s = x.joint, xgrid = xgrid, vgrid = vgrid, gh.rule = gh.rule, ...)
     # evaluate intervals
+    x.joint.srt <- sort(x.joint)
     res.itls <- lapply(seq(from = 1, length.out = length(x.joint) - 1), function(itl) {
         #print(x.joint[itl + (0:1)])
-        optimize(Eumsi.optim.vec, interval = x.joint[itl + (0:1)], maximum = TRUE,
+        optimize(Eumsi.optim.vec, interval = x.joint.srt[itl + (0:1)], maximum = TRUE,
                  gh.rule = gh.rule, vgrid = vgrid, xgrid = xgrid, ...)
     })
     # evaluate terminals
