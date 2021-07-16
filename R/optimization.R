@@ -38,8 +38,6 @@ Eumsi.optimize.terminal <- function(x, sgn = 1, last.optim = 4, ...) {
     res
 }
 
-Eumsi.optimize.interval <- function()
-
 #' Find optimal entry location per expected inverse utility
 #'
 #' @param vgrid values of other competitors
