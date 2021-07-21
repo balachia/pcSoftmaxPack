@@ -3,6 +3,7 @@
 export(Eumsi.optim.vec)
 export(Eumsi.optimize)
 export(ms.total)
+export(ms.total.trunc)
 export(msik)
 export(msiv)
 export(mstv)
